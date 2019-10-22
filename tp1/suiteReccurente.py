@@ -16,7 +16,12 @@ def fiboIte(n):
     return tab[n]
 
 
-a = 35
+def fiboLog(n):
+
+    pass
+
+
+a = 34
 
 now = time.time()
 fiboRec(a)
