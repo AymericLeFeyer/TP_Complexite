@@ -1,5 +1,6 @@
 import random
 
+
 def couples(L):
     L2 = []
     for a in L:
@@ -20,10 +21,10 @@ def pn_moins_un(couple):
     return L
 
 
-def atteignable(L, R):
+def atteignable(L, r):
     L2 = pn_moins_un(L)
     for i in range(len(L2)):
-        if R == L2[i][0]:
+        if r == L2[i][0]:
             print(L2[i][1])
             return True
     return False
@@ -50,11 +51,6 @@ def possible(Plaques, R, max):
         for a in couples(Plaques):
             if atteignable(a, R):
                 return True
-
-
-
-
-
 
 
 print(couples([1, 2, 3, 4, 5, 6]))
