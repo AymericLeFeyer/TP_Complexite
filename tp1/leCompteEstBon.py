@@ -14,6 +14,7 @@ def pn_moins_un(couple):
     L = []
     if couple[0] - couple[1] > 0:
         L.append([couple[0] - couple[1], str("" + str(couple[0]) + "-" + str(couple[1]))])
+
     L.append([couple[0] + couple[1], str("" + str(couple[0]) + "+" + str(couple[1]))])
     L.append([couple[0] * couple[1], str("" + str(couple[0]) + "*" + str(couple[1]))])
     if couple[0] % couple[1] == 0:
@@ -27,6 +28,7 @@ def atteignable(L, r):
         if r == L2[i][0]:
             print(L2[i][1])
             return True
+
     return False
 
 
@@ -46,15 +48,28 @@ def R():
     return random.randint(100, 999)
 
 
-def possible(Plaques, R, max):
-    for i in range(max):
-        for a in couples(Plaques):
-            if atteignable(a, R):
-                return True
+def possible(Plaques, r):
+    for a in couples(Plaques):
+        if atteignable(a, r):
+            return True
+
+    return False
 
 
-print(couples([1, 2, 3, 4, 5, 6]))
-print(pn_moins_un([6, 2]))
-print(atteignable([6, 2], 3))
-print(plaques())
-print(R())
+def newListe(c, p, Plaques):
+    L = pn_moins_un(c)
+    if p == '-':
+        return Plaques.append(L[0])
+
+
+def LCEB(Plaques, r):
+    if possible(Plaques, r):
+        return True
+    for a in couples(Plaques):
+        LCEB(newListe(a, '-', Plaques), r)
+        LCEB(newListe(a, '+', Plaques), r)
+        LCEB(newListe(a, '*', Plaques), r)
+        LCEB(newListe(a, '/', Plaques), r)
+
+
+LCEB(plaques(), 120)
