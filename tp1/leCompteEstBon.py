@@ -56,20 +56,35 @@ def possible(Plaques, r):
     return False
 
 
-def newListe(c, p, Plaques):
-    L = pn_moins_un(c)
-    if p == '-':
-        return Plaques.append(L[0])
+def LCEB(pla, res):
+    plaq = pla
+    print(pla)
+
+    if atteignable(pla, res):
+        print("trouve")
+    for c in couples(pla):
+        a = pn_moins_un(c)
+        if c[0] in plaq:
+            plaq.remove(c[0])
+        if c[1] in plaq:
+            plaq.remove(c[1])
+
+        for i in range(len(a)):
+
+            plaq.append(a[i][0])
+            if len(plaq) > 1:
+                if LCEB(plaq, res):
+                    print("trouve")
+            else:
+                if a[i][0] in plaq:
+                    plaq.remove(a[i][0])
+                return False
+            if a[i][0] in plaq:
+                plaq.remove(a[i][0])
 
 
-def LCEB(Plaques, r):
-    if possible(Plaques, r):
-        return True
-    for a in couples(Plaques):
-        LCEB(newListe(a, '-', Plaques), r)
-        LCEB(newListe(a, '+', Plaques), r)
-        LCEB(newListe(a, '*', Plaques), r)
-        LCEB(newListe(a, '/', Plaques), r)
+print("pas trouve")
 
-
-LCEB(plaques(), 120)
+p = plaques()
+r = R()
+LCEB(p, r)
