@@ -83,8 +83,27 @@ def LCEB(pla, res):
                 plaq.remove(a[i][0])
 
 
-print("pas trouve")
-
-p = plaques()
-r = R()
-LCEB(p, r)
+# Affichage Utilisateur
+print("Probleme non resolu, mais certaines fonctions fonctionnent")
+alive = True
+while alive:
+    print(
+        "Que faire ?\n0 - Quitter\n1 - Construire des couples\n2 - Construire Pn-1\n3 - Generer les plaques et le "
+        "resultat")
+    choix = int(input())
+    if choix == 1:
+        p = plaques()
+        print("Couples possibles a partir de " + str(p) + " :\n")
+        print(couples(p))
+    if choix == 2:
+        p = [10, 20, 30, 40]
+        print("Pn-1 a partir de " + str(p) + " :\n")
+        for a in couples(p):
+            print(pn_moins_un(a))
+    if choix == 3:
+        print("Plaques generees aleatoirement :")
+        print(str(plaques()) + "\n")
+        print("Resultat genere aleatoirement :")
+        print(str(R()) + "\n")
+    if choix == 0:
+        alive = False

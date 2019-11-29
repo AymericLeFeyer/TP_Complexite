@@ -42,31 +42,32 @@ def tri_bulle(tableau):
     return tableau
 
 
-def merge(left, right):
-    if not len(left) or not len(right):
-        return left or right
-    result = []
-    i, j = 0, 0
-    while (len(result) < len(left) + len(right)):
-        if left[i] < right[j]:
-            result.append(left[i])
-            i += 1
+def fusion(gauche, droite):
+    resultat = []
+    index_gauche, index_droite = 0, 0
+    while index_gauche < len(gauche) and index_droite < len(droite):
+        if gauche[index_gauche] <= droite[index_droite]:
+            resultat.append(gauche[index_gauche])
+            index_gauche += 1
         else:
-            result.append(right[j])
-            j += 1
-        if i == len(left) or j == len(right):
-            result.extend(left[i:] or right[j:])
-            break
-    return result
+            resultat.append(droite[index_droite])
+            index_droite += 1
+    if gauche:
+        resultat.extend(gauche[index_gauche:])
+    if droite:
+        resultat.extend(droite[index_droite:])
+    return resultat
 
 
-def mergesort(list):
-    if len(list) < 2:
-        return list
-    middle = len(list) / 2
-    left = mergesort(list[:middle])
-    right = mergesort(list[middle:])
-    return merge(left, right)
+def tri_fusion(m):
+    if len(m) <= 1:
+        return m
+    milieu = len(m) // 2
+    gauche = m[:milieu]
+    droite = m[milieu:]
+    gauche = tri_fusion(gauche)
+    droite = tri_fusion(droite)
+    return list(fusion(gauche, droite))
 
 
 def creerTableau(n):
@@ -77,13 +78,29 @@ def creerTableau(n):
 
 
 def mesurerTemps(fonction, t):
+    print("Mesure du temps pour " + str(fonction))
     now = time.time()
     fonction(t)
     new = time.time() - now
-    print(str(fonction) + ' : ' + str(new))
+    print(str(fonction) + ' : ' + str(new) + '\n')
 
 
-mesurerTemps(tri_selection, creerTableau(10000))
-mesurerTemps(tri_insertion, creerTableau(10000))
-mesurerTemps(tri_bulle, creerTableau(10000))
-# mesurerTemps(mergesort, creerTableau(100))
+# Affichage Utilisateur
+alive = True
+while alive:
+    print("Quel tri voulez vous tester ?\n0 - Quitter\n1 - Selection\n2 - Insertion\n3 - Bulle\n4 - Fusion\n5 - Tous")
+    whichOne = int(input())
+
+    print("Pour combien de valeurs souhaitez vous tester les tris ?")
+    nb = int(input())
+
+    if whichOne == 1 or whichOne == 5:
+        mesurerTemps(tri_selection, creerTableau(nb))
+    if whichOne == 2 or whichOne == 5:
+        mesurerTemps(tri_insertion, creerTableau(nb))
+    if whichOne == 3 or whichOne == 5:
+        mesurerTemps(tri_bulle, creerTableau(nb))
+    if whichOne == 4 or whichOne == 5:
+        mesurerTemps(tri_fusion, creerTableau(nb))
+    if whichOne == 0:
+        alive = False
