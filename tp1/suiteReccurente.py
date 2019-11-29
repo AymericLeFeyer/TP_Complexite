@@ -1,4 +1,6 @@
 import time
+import os
+
 
 # Fibonacci
 
@@ -11,7 +13,7 @@ def fiboRec(n):
 
 def fiboIte(n):
     tab = [1, 1]
-    for i in range (2, n+1):
+    for i in range(2, n + 1):
         tab.append(tab[i - 1] + tab[i - 2])
     return tab[n]
 
@@ -69,23 +71,38 @@ class MatrixFibonacci:
         return matrices[0][0][0]
 
 
-while(1):
+# Interface Utilisateur
+print("Suite de Fibonacci")
+alive = True
+while alive:
+    print("Quel algorithme voulez vous tester ?\n0 - Quitter\n1 - Iteratif\n2 - Recursif\n3 - Logarithmique\n4 - Tous")
+    choix = int(input())
+    a = 0
 
-    a = int(input())
-    mfib = MatrixFibonacci()
+    if choix:
+        print("Pour quelle valeur ?")
+        a = int(input())
 
-    now = time.time()
-    mfib.get_number(a)
-    new = time.time() - now
+    if choix == 1 or choix == 4:
+        now2 = time.time()
+        fiboIte(a)
+        new2 = time.time() - now2
+        print("Iteratif : " + str(new2))
 
-    now2 = time.time()
-    fiboIte(a)
-    new2 = time.time() - now2
+    if choix == 3 or choix == 4:
+        mfib = MatrixFibonacci()
+        now = time.time()
+        mfib.get_number(a)
+        new = time.time() - now
+        print("Logaritmique : " + str(new))
 
-    # now3 = time.time()
-    # fiboRec(a)
-    # new3 = time.time() - now3
+    if choix == 2 or choix == 4:
+        now3 = time.time()
+        fiboRec(a)
+        new3 = time.time() - now3
+        print("Recursif : " + str(new3))
 
-    print("Iteratif : " + str(new2))
-    # print("Rec : " + str(new3))
-    print("Logaritmique : " + str(new))
+    if choix == 0:
+        alive = False
+
+os.system("pause")

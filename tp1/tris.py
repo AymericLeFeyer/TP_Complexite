@@ -1,12 +1,13 @@
 import random
 import time
+import os
 
 
 def tri_selection(tableau):
-    nb = len(tableau)
-    for en_cours in range(0, nb):
+    nbe = len(tableau)
+    for en_cours in range(0, nbe):
         plus_petit = en_cours
-        for j in range(en_cours + 1, nb):
+        for j in range(en_cours + 1, nbe):
             if tableau[j] < tableau[plus_petit]:
                 plus_petit = j
         if min is not en_cours:
@@ -104,3 +105,5 @@ while alive:
         mesurerTemps(tri_fusion, creerTableau(nb))
     if whichOne == 0:
         alive = False
+
+os.system("pause")

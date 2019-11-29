@@ -1,4 +1,5 @@
 import time
+import os
 
 
 def eratosthene(n):
@@ -13,7 +14,17 @@ def eratosthene(n):
     return premiers
 
 
-now = time.time()
-eratosthene((10 ** 7)*4)
-new = time.time() - now
-print(new)
+print("Crible d'Eratosthene")
+alive = True
+while alive:
+    print("Pour quelle valeur ? (0 pour quitter)")
+    a = int(input())
+    if a:
+        now = time.time()
+        eratosthene(a)
+        new = time.time() - now
+        print(new)
+    else:
+        alive = False
+
+os.system("pause")
